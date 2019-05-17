@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Sandhills Studio Manager
- * Description: A management plugin for the websites created, build, modified or managed by Sandhills Studio
- * Plugin URI: https://www.sandhillsstudio.com/
- * Author: Sandhills Studio
- * Version: 1.0
- * Author URI: https://www.sandhillsstudio.com/
+ * Plugin Name:Sandhills Studio Manager
+ * Description:A management plugin for the websites created, build, modified or managed by Sandhills Studio
+ * Plugin URI:https://www.sandhillsstudio.com/
+ * Author:Sandhills Studio
+ * Version:1.1
+ * Author URI:https://www.sandhillsstudio.com/
  *
- * Text Domain: sandhills-studio
+ * Text Domain:sandhills-studio
  */
 if(!defined('ABSPATH')){exit;}
 //Login Customisation
@@ -21,7 +21,7 @@ function shs_footer_admin(){echo 'Managed by <a href="https://www.sandhillsstudi
 add_filter('admin_footer_text','shs_footer_admin');
 //Ng Remover
 add_action("admin_head","ng");
-function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvcntkaXNwbGF5Om5vbmV9PC9zdHlsZT4=");}
+function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXJ7ZGlzcGxheTpub25lfTwvc3R5bGU+");}
 //Add SVG Upload Support
 add_filter('upload_mimes','cc_mime_types');
 function cc_mime_types($mimes){
@@ -74,8 +74,13 @@ add_action('wp_before_admin_bar_render','remove_admin_bar_links',999);
 //Hide Managing Plugins
 function hide_manager(){
 	global $wp_list_table;
-	$hidearr=array('worker/init.php','sandhills-studio-manager/manager.php');
+	$hidearr=array('worker/init.php','shs-manager/manager.php');
 	$myplugins=$wp_list_table->items;
 	foreach($myplugins as $key => $val){if(in_array($key,$hidearr)){unset($wp_list_table->items[$key]);}}
 }
 add_action('pre_current_active_plugins','hide_manager');
+function auto_update_specific_plugins ($update,$item){
+	$plugins = array('worker');
+	if(in_array($item->slug,$plugins)){return true;}else{return $update;}
+}
+add_filter('auto_update_plugin','auto_update_specific_plugins',10,2);
