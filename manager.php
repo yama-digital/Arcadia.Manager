@@ -79,8 +79,8 @@ function hide_manager(){
 	foreach($myplugins as $key => $val){if(in_array($key,$hidearr)){unset($wp_list_table->items[$key]);}}
 }
 add_action('pre_current_active_plugins','hide_manager');
-function auto_update_specific_plugins ($update,$item){
+function auto_update_worker_plugin($update,$item){
 	$plugins = array('worker');
 	if(in_array($item->slug,$plugins)){return true;}else{return $update;}
 }
-add_filter('auto_update_plugin','auto_update_specific_plugins',10,2);
+add_filter('auto_update_plugin','auto_update_worker_plugin',10,2);
