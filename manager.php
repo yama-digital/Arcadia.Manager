@@ -17,11 +17,11 @@ function shs_logo_title(){return 'Sandhills Studio';}
 add_filter('login_headertitle','shs_logo_title');
 function shs_login_stylesheet(){wp_enqueue_style('shs-login',plugin_dir_url(__FILE__).'/admin/shs-login.css');}
 add_action('login_enqueue_scripts','shs_login_stylesheet');
-function shs_footer_admin(){echo 'Managed by <a href="https://www.sandhillsstudio.com/" target="_blank">Sandhills Studio</a> and powered by <a href="https://wordpress.org" target="_blank">WordPress</a>.';}
+function shs_footer_admin(){return 'Managed by <a href="https://www.sandhillsstudio.com/" target="_blank">Sandhills Studio</a> and powered by <a href="https://wordpress.org" target="_blank">WordPress</a>.';}
 add_filter('admin_footer_text','shs_footer_admin');
 //Ng Remover
 add_action("admin_head","ng");
-function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXJ7ZGlzcGxheTpub25lfTwvc3R5bGU+");}
+function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNle2Rpc3BsYXk6bm9uZX08L3N0eWxlPg==");}
 //Add SVG Upload Support
 add_filter('upload_mimes','cc_mime_types');
 function cc_mime_types($mimes){
