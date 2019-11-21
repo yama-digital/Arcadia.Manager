@@ -15,13 +15,15 @@ body.login h1 a{
 	box-shadow:unset;
 }
 body.login h1:hover a{opacity:.8}
-body.login div#login form#loginform{
+body.login div#login form#loginform,form.admin-email-confirm-form,form.admin-email-confirm-form{
 	background:#282828;
 	border-radius:5px;
 	box-shadow:0 4px 10px rgba(0,0,0,.2);
 	margin:10px 0 0;
 	padding:25px;
+	border-color:#333;
 }
+form.admin-email-confirm-form,.login h1.admin-email__heading{color:#fff}
 body.login div#login form#loginform p label{color:#919191}
 body.login div#login form#loginform input{
 	background:#333;
@@ -32,7 +34,7 @@ body.login div#login form#loginform input{
 	padding:6px 16px;
 }
 body.login div#login form#loginform input[type=checkbox]:checked:before{color:#9b865e}
-body.login div#login form#loginform p.submit input#wp-submit{
+body.login div#login form#loginform p.submit input#wp-submit,.login .admin-email__actions .button-primary,.login .button.button-large{
 	background-color:#9b865e;
 	color:#fff;
 	font-size:18px;
@@ -43,8 +45,9 @@ body.login div#login form#loginform p.submit input#wp-submit{
 	line-height:0;
 	transition:all .3s ease;
 	padding:16px;
+	outline:0
 }
-body.login div#login form#loginform p.submit input#wp-submit:hover{
+body.login div#login form#loginform p.submit input#wp-submit:hover,.login .admin-email__actions .button-primary:hover,.login .button.button-large:hover{
 	background-color:rgba(32,32,32,.32);
 	color:#9b865e;
 	border-color:#9b865e;
@@ -74,6 +77,7 @@ body.login h1:before{
 	transition:all .3s ease;
 }
 body.login h1:hover:before{opacity:1;top:-10px}
+.login h1.admin-email__heading:before{display:none}
 /*Messages*/
 .login #login_error, .login .message, .login .success{
 	background:#333;

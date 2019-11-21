@@ -4,7 +4,7 @@
  * Description:A management plugin for the websites created, build, modified or managed by Sandhills Studio
  * Plugin URI:https://www.sandhillsstudio.com/
  * Author:Sandhills Studio
- * Version:1.1
+ * Version:1.2
  * Author URI:https://www.sandhillsstudio.com/
  *
  * Text Domain:sandhills-studio
@@ -22,6 +22,8 @@ add_filter('admin_footer_text','shs_footer_admin');
 //Ng Remover
 add_action("admin_head","ng");
 function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNle2Rpc3BsYXk6bm9uZX08L3N0eWxlPg==");}
+function builder_style(){echo'<style>#elementor-notice-bar{display:none!important}</style>';}
+add_action('elementor/editor/before_enqueue_scripts','builder_style');
 //Add SVG Upload Support
 add_filter('upload_mimes','cc_mime_types');
 function cc_mime_types($mimes){
