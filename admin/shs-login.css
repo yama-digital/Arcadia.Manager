@@ -33,7 +33,7 @@ body.login div#login form#loginform input{
 	box-shadow:unset;
 	padding:6px 16px;
 }
-body.login div#login form#loginform input[type=checkbox]:checked:before{color:#9b865e}
+body.login div#login form#loginform input[type=checkbox]:checked:before{content:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PGRlZnMvPjxwYXRoIGZpbGw9IiM5Yjg2NWUiIGQ9Ik0xNS4yIDUuMmwuNS4zYy4zLjIuMy41LjIuOEwxMC41IDE0bC0uNC4yaC0uOGwtLjQtLjItMi44LTMuOWMtLjItLjMtLjItLjYgMC0uOGwuNi0uNmMuMi0uMi41LS4yLjcgMGwxLjggMS43Yy4yLjIuNi4yLjggMGw0LjUtNS4xYy4yLS4zLjUtLjMuNy0uMXoiLz48L3N2Zz4=)}
 body.login div#login form#loginform p.submit input#wp-submit,.login .admin-email__actions .button-primary,.login .button.button-large{
 	background-color:#9b865e;
 	color:#fff;
