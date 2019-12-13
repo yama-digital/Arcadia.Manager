@@ -4,7 +4,7 @@
  * Description:A management plugin for the websites created, build, modified or managed by Sandhills Studio
  * Plugin URI:https://www.sandhillsstudio.com/
  * Author:Sandhills Studio
- * Version:1.2.1
+ * Version:1.2.2
  * Author URI:https://www.sandhillsstudio.com/
  *
  * Text Domain:sandhills-studio
