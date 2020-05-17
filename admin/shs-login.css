@@ -1,3 +1,4 @@
+/*Login Page*/
 body.login{
 	background-color:#202020;
 	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzkwIDM2NC42Ij48cGF0aCBmaWxsPSIjMWExYTFhIiBkPSJNNjY0LjMgMjAwLjVsMzMxLjUgNjIuOUwxODU4LjcgMCAyNzkwIDM2NC42SDB6Ii8+PC9zdmc+);
@@ -60,6 +61,8 @@ body.login div#login form#loginform p.submit input#wp-submit:hover,.login .admin
 	text-align:center
 }
 .login .privacy-policy-page-link{margin:1em 0}
+.login .dashicons-visibility:before,.login .dashicons-hidden:before{color:#9b865e}
+.login .button.wp-hide-pw:focus{border-color:#9b865e;box-shadow: 0 0 0 1px #9b865e}
 /*Managed By*/
 body.login h1{position:relative}
 body.login h1:before{
