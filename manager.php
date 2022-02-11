@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:YD Manager
- * Description:A management plugin for the websites created,build,modified or managed by Yama Digital
+ * Plugin Name:Yama Manager
+ * Description:A management plugin for the websites created,build,modified or managed by Yama Digital.
  * Plugin URI:https://Yama.Digital
  * Author:Yama.Digital
  * Version:1.0
