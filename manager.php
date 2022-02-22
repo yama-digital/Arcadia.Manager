@@ -45,7 +45,7 @@ add_filter('admin_footer_text','yd_footer_admin');
 //Dashboard Customisation
 /*function yd_dashboard_stylesheet(){wp_enqueue_style('shs-dashboard',plugin_dir_url(__FILE__).'/admin/shs-dashboard.css');}
 add_action('admin_enqueue_scripts','yd_dashboard_stylesheet');*/
-function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNle2Rpc3BsYXk6bm9uZX08L3N0eWxlPg==");}
+function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNlLC5kY2UtZ2VuZXJpYy1ub3RpY2V7ZGlzcGxheTpub25lfTwvc3R5bGU+");}
 add_action("admin_head","ng");
 function builder_style(){echo'<style>#elementor-notice-bar{display:none!important}</style>';}
 add_action('elementor/editor/before_enqueue_scripts','builder_style');
